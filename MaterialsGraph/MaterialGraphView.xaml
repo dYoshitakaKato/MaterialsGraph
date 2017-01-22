@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="MaterialsGraph.MaterialGraphView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MaterialsGraph"
+             xmlns:metro2="http://schemes.grabacr.net/winfx/2015/personal/controls"
+             xmlns:kanColleWrapper="clr-namespace:Grabacr07.KanColleWrapper;assembly=KanColleWrapper"
+             xmlns:sparrow="http://sparrowtoolkit.codeplex.com/wpf"
+             xmlns:materials="clr-namespace:MaterialsGraph.Materials"
+             xmlns:viewModels="clr-namespace:MaterialsGraph"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance viewModels:MaterialsGraphViewModel}" Height="220" Width="385">
+    <Grid Margin="0,0,10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="43*"/>
+            <RowDefinition Height="17*"/>
+        </Grid.RowDefinitions>
+        <sparrow:SparrowChart Grid.RowSpan="2" Margin="-70,-20,-55,-10" Name="Chart">
+            <sparrow:SparrowChart.XAxis>
+                <sparrow:DateTimeXAxis StringFormat="MM/dd"/>
+            </sparrow:SparrowChart.XAxis>
+            <sparrow:SparrowChart.YAxis>
+                <sparrow:LinearYAxis/>
+            </sparrow:SparrowChart.YAxis>
+
+            <sparrow:LineSeries PointsSource="{Binding Path=Fuel}" XPath="X" YPath="Y" Stroke="DarkGreen" StrokeThickness="3" Visibility="Visible" />
+            <sparrow:LineSeries PointsSource="{Binding Path=Ammunition}" XPath="X" YPath="Y" Stroke="Red" StrokeThickness="3" Visibility="Visible" />
+            <sparrow:LineSeries PointsSource="{Binding Path=Steel}" XPath="X" YPath="Y" Stroke="DarkGray" StrokeThickness="3" Visibility="Visible" />
+            <sparrow:LineSeries PointsSource="{Binding Path=Bauxite}" XPath="X" YPath="Y" Stroke="Chocolate"  StrokeThickness="3" Visibility="Visible"/>
+            <sparrow:LineSeries PointsSource="{Binding Path=InstantRepairMaterials}" XPath="X" YPath="Y" Stroke="LightGreen" StrokeThickness="3" Visibility="Visible" />
+            <sparrow:LineSeries PointsSource="{Binding Path=ImprovementMaterials}" XPath="X" YPath="Y" Stroke="LightGray" StrokeThickness="3" Visibility="Visible" />
+
+        </sparrow:SparrowChart>
+    </Grid>
+</UserControl>
