@@ -29,6 +29,27 @@ namespace MaterialsGraph.Csv
             {
                 throw new Exception(e.ToString());
             }
+            /*
+            using (MaterialsLogDBContex context = new MaterialsLogDBContex())
+            {
+                Models.MaterialsLog materialsLog;
+                foreach(Materials.Materials materials in materialsDictionary.Values)
+                {
+                    materialsLog = new Models.MaterialsLog();
+                    materialsLog.InsertDate = materials.Date;
+                    materialsLog.Fuel = materials.Fuel;
+                    materialsLog.Ammunition = materials.Ammunition;
+                    materialsLog.Steel = materials.Steel;
+                    materialsLog.Bauxite = materials.Bauxite;
+                    materialsLog.DevelopmentMaterials = materials.DevelopmentMaterials;
+                    materialsLog.InstantRepairMaterials = materials.InstantRepairMaterials;
+                    materialsLog.InstantBuildMaterials = materials.InstantBuildMaterials;
+                    materialsLog.ImprovementMaterials = materials.ImprovementMaterials;
+                    context.MaterialsLogs.Add(materialsLog);
+                }
+                context.SaveChanges();
+            }
+            */
             return materialsDictionary;
         }
 

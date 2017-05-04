@@ -17,9 +17,10 @@ namespace MaterialsGraph.Materials
 
         public void update(kcsapi_material[] api_material)
         {
-            Materials materials = new Materials(api_material);
-            CsvUtil.writeCSVFile(materials);
-            MaterialUpdateUtil.updateMaterialsDictionary(KanColleMaterialsGraph.MaterialsCache, materials);
+            //Materials materials = new Materials(api_material);
+            //CsvUtil.writeCSVFile(materials);
+            //MaterialUpdateUtil.updateMaterialsDictionary(KanColleMaterialsGraph.MaterialsCache, materials);
+
             this.RaisePropertyChanged();
         }
     }
@@ -30,7 +31,7 @@ namespace MaterialsGraph.Materials
         {
             proxy.api_port.TryParse<kcsapi_port>().Subscribe(x =>
             {
-                update(x.Data.api_material);
+                //update(x.);
             });
             proxy.api_get_member_material.TryParse<kcsapi_material[]>().Subscribe(x => update(x.Data));
         }
