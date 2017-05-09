@@ -1,4 +1,5 @@
 ﻿using Grabacr07.KanColleWrapper;
+using Grabacr07.KanColleWrapper.Models.Raw;
 using MaterialsGraph.Models;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace MaterialsGraph.Materials
             return dictionary;
         }
 
-        public static void update()
+        public static void update(kcsapi_material[] api_material)
         {
             using(MaterialsLogDBContex context = new MaterialsLogDBContex())
             {
@@ -37,27 +38,27 @@ namespace MaterialsGraph.Materials
                 {
                     DateTime date = DateTime.Parse(DateTime.Now.ToString("yyyy/MM/dd"));
                     materialsLog = context.MaterialsLogs.Find(date);
-                    materialsLog.Fuel = KanColleClient.Current.Homeport.Materials.Fuel;
-                    materialsLog.Ammunition = KanColleClient.Current.Homeport.Materials.Ammunition;
-                    materialsLog.Steel = KanColleClient.Current.Homeport.Materials.Steel;
-                    materialsLog.Bauxite = KanColleClient.Current.Homeport.Materials.Bauxite;
-                    materialsLog.DevelopmentMaterials = KanColleClient.Current.Homeport.Materials.DevelopmentMaterials;
-                    materialsLog.InstantRepairMaterials = KanColleClient.Current.Homeport.Materials.InstantRepairMaterials;
-                    materialsLog.InstantBuildMaterials = KanColleClient.Current.Homeport.Materials.InstantBuildMaterials;
-                    materialsLog.ImprovementMaterials = KanColleClient.Current.Homeport.Materials.ImprovementMaterials;
+                    materialsLog.Fuel = api_material[0].api_value;
+                    materialsLog.Ammunition = api_material[1].api_value;
+                    materialsLog.Steel = api_material[2].api_value;
+                    materialsLog.Bauxite = api_material[3].api_value;
+                    materialsLog.InstantBuildMaterials = api_material[4].api_value;
+                    materialsLog.InstantRepairMaterials = api_material[5].api_value;
+                    materialsLog.DevelopmentMaterials = api_material[6].api_value;
+                    materialsLog.ImprovementMaterials = api_material[7].api_value;
                 }
                 catch (Exception e)
                 {
                     materialsLog = new MaterialsLog();
                     materialsLog.InsertDate = DateTime.Now;
-                    materialsLog.Fuel = KanColleClient.Current.Homeport.Materials.Fuel;
-                    materialsLog.Ammunition = KanColleClient.Current.Homeport.Materials.Ammunition;
-                    materialsLog.Steel = KanColleClient.Current.Homeport.Materials.Steel;
-                    materialsLog.Bauxite = KanColleClient.Current.Homeport.Materials.Bauxite;
-                    materialsLog.DevelopmentMaterials = KanColleClient.Current.Homeport.Materials.DevelopmentMaterials;
-                    materialsLog.InstantRepairMaterials = KanColleClient.Current.Homeport.Materials.InstantRepairMaterials;
-                    materialsLog.InstantBuildMaterials = KanColleClient.Current.Homeport.Materials.InstantBuildMaterials;
-                    materialsLog.ImprovementMaterials = KanColleClient.Current.Homeport.Materials.ImprovementMaterials;
+                    materialsLog.Fuel = api_material[0].api_value;
+                    materialsLog.Ammunition = api_material[1].api_value;
+                    materialsLog.Steel = api_material[2].api_value;
+                    materialsLog.Bauxite = api_material[3].api_value;
+                    materialsLog.InstantBuildMaterials = api_material[4].api_value;
+                    materialsLog.InstantRepairMaterials = api_material[5].api_value;
+                    materialsLog.DevelopmentMaterials = api_material[6].api_value;
+                    materialsLog.ImprovementMaterials = api_material[7].api_value;
                     context.MaterialsLogs.Add(materialsLog);
                 }
                 context.SaveChanges();

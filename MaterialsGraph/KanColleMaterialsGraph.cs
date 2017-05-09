@@ -19,7 +19,7 @@ namespace MaterialsGraph
     [ExportMetadata("Author", "@hiyori")]
     [ExportMetadata("Guid", "BFBAD457-37B7-4C59-AD0D-9435D50D06D3")]
     [Export(typeof(ITool))]
-    class KanColleMaterialsGraph : IPlugin, ITool, IDisposableHolder
+    class KanColleMaterialsGraph : IPlugin, ITool
     {
         private static Dictionary<string, Materials.Materials> _MaterialsCache = CsvUtil.loadCSVile();
         private bool initialized;
@@ -41,36 +41,12 @@ namespace MaterialsGraph
 
         object ITool.View => new MaterialGraphView { DataContext = viewModel };
 
-        public void Dispose() => this.compositDisposable.Dispose();
-        ICollection<IDisposable> IDisposableHolder.CompositeDisposable => compositDisposable;
-
-        public void Initialize() {
-            KanColleClient.Current.Subscribe(nameof(KanColleClient.IsStarted), () => this.InitializeCore(), false).AddTo(this);
-        }
-
-        private void InitializeCore()
+        public void Initialize()
         {
-            var homeport = KanColleClient.Current.Homeport;
-            if (homeport == null) return;
-            this.initialized = true;
-            homeport.Organization
-                .Subscribe(nameof(Organization.Fleets), this.test)
-                .AddTo(this);
-        }
-
-        private void test()
-        {
-            if (!this.initialized) return;
-
-            /*
-
-            foreach (var handler in this.fleetHandlers)
+            new ObservableCollection<UpdateBase>
             {
-                handler.Dispose();
-            }
-            this.fleetHandlers.Clear();
-            */
-            this.fleetHandlers.Add(KanColleClient.Current.Homeport.Materials.Subscribe(nameof(Homeport.Materials), MaterialUpdateUtil.update));
+                new UpdateMaterial(KanColleClient.Current.Proxy)
+            };
         }
     }
 }
